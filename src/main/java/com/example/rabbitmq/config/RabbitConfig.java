@@ -33,9 +33,9 @@ public class RabbitConfig {
     }
 
     @Bean
-    public SimpleMessageListenerContainer listenerContainer(ConnectionFactory connectionFactory,
-                                                            MessageListenerAdapter listenerAdapter1) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
+    public SimpleMessageListenerContainer listenerContainer1(ConnectionFactory connectionFactory,
+                                                             MessageListenerAdapter listenerAdapter1) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName1);
         container.setMessageListener(listenerAdapter1);
@@ -45,7 +45,7 @@ public class RabbitConfig {
     @Bean
     public SimpleMessageListenerContainer listenerContainer2(ConnectionFactory connectionFactory,
                                                              MessageListenerAdapter listenerAdapter2) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName2);
         container.setMessageListener(listenerAdapter2);
@@ -53,12 +53,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter1(Receiver receiver) {
-        return new MessageListenerAdapter(receiver);
+    public MessageListenerAdapter listenerAdapter1(Receiver receiver) {
+        return new MessageListenerAdapter(receiver, "receive1");
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter2(Receiver receiver) {
-        return new MessageListenerAdapter(receiver);
+    public MessageListenerAdapter listenerAdapter2(Receiver receiver) {
+        return new MessageListenerAdapter(receiver, "receive2");
     }
 }
